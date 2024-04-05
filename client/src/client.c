@@ -23,13 +23,13 @@ int main(void)
 
 
 	/* ---------------- ARCHIVOS DE CONFIGURACION ---------------- */
-	config_create("../cliente.config")
+	config_create("../cliente.config");
 	config = iniciar_config();
-	config_has_property(config,"CLAVE")
+	config_has_property(config,"CLAVE");
 
 	if(config == NULL){
-		fprintf("config = null ")
-		fprintf("*programa terminado* ;D")
+		printf("config = null ");
+		printf("*programa terminado* ;D");
 	}
 
 
@@ -79,14 +79,14 @@ void leer_consola(t_log* logger)
 {
 	char* leido;
 
-	// La primera te la dejo de yapa
-	leido = readline("> ");
-
-	// El resto, las vamos leyendo y logueando hasta recibir un string vacío
-
-
-	// ¡No te olvides de liberar las lineas antes de regresar!
-
+	while(true){
+		leido = readline("> ");
+		if (strcmp(leido,"")==0){
+			free(leido);
+			break;
+		}
+		free(leido);
+	}
 }
 
 void paquete(int conexion)
@@ -105,7 +105,7 @@ void paquete(int conexion)
 void terminar_programa(int conexion, t_log* logger, t_config* config)
 {
 	log_destroy(logger);
-	log_destroy(config);
+	config_destroy(config);
 	/* Y por ultimo, hay que liberar lo que utilizamos (conexion, log y config) 
 	  con las funciones de las commons y del TP mencionadas en el enunciado */
 };
